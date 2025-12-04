@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paisagens Místicas | Alexandra Teixeira</title>
+ 
+    <!-- Fontes de Luxo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+ 
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- REUTILIZANDO VARIÁVEIS DE ESTILO --- */
+        :root {
+            --bg-dark: #080808;
+            --gold-accent: #d4af37;
+            --text-main: #f5f5f5;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+     
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        /* --- HEADER (Idêntico ao original) --- */
+        header {
+            position: fixed; top: 0; width: 100%;
+            padding: 20px 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+        }
+        header.transparent {
+            background: transparent;
+            border-bottom: none;
+        }
+        .nav-links { flex: 1; display: flex; }
+        .nav-left { justify-content: flex-start; }
+        .nav-right { justify-content: flex-end; }
+        .nav-links a {
+            color: white; text-decoration: none;
+            margin: 0 20px; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 2px;
+            position: relative; transition: 0.3s;
+        }
+     
+        .nav-links a:hover { color: var(--gold-accent); }
+        .brand { text-align: center; flex: 1; cursor: pointer; }
+        .brand h1 {
+            font-family: var(--font-serif); font-size: 1.8rem; font-weight: 400; color: white;
+        }
+        .brand span {
+            display: block; font-size: 0.5rem; letter-spacing: 4px; color: var(--gold-accent); text-transform: uppercase;
+        }
+        /* --- SUB-PAGE HERO (Cabeçalho da Página Interna) --- */
+        .page-header {
+            height: 60vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1920'); /* Imagem de paisagem mística */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efeito Parallax */
+        }
+        .page-header::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); /* Escurecer imagem para texto */
+        }
+        .ph-content { z-index: 2; position: relative; padding: 0 20px; }
+        .ph-title {
+            font-family: var(--font-serif); font-size: 5rem; color: var(--gold-accent);
+            font-style: italic; font-weight: 300; margin-bottom: 10px;
+            animation: fadeIn Up 1s ease;
+        }
+        .ph-subtitle {
+            text-transform: uppercase; letter-spacing: 6px; font-size: 0.8rem; color: white;
+        }
+        /* --- TEXTO INTRODUTÓRIO --- */
+        .intro-text {
+            max-width: 800px; margin: 80px auto; text-align: center; padding: 0 20px;
+        }
+        .intro-text p {
+            font-size: 1.1rem; color: #ccc; font-weight: 300;
+        }
+        .divider {
+            width: 1px; height: 60px; background: var(--gold-accent);
+            margin: 40px auto; display: block;
+        }
+        /* --- GALERIA MASONRY (Grade Artística) --- */
+        .art-gallery {
+            max-width: 1400px; margin: 0 auto 100px; padding: 0 20px;
+            display: column; /* Fallback */
+            column-count: 3;
+            column-gap: 20px;
+        }
+        .art-item {
+            margin-bottom: 20px;
+            break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .art-item img {
+            width: 100%; display: block;
+            transition: transform 0.8s ease, filter 0.5s ease;
+            filter: grayscale(30%);
+        }
+        .art-item:hover img {
+            transform: scale(1.03); filter: grayscale(0%);
+        }
+        /* Overlay com nome da obra */
+        .art-info {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            opacity: 0; transition: 0.4s;
+            transform: translateY(10px);
+        }
+     
+        .art-item:hover .art-info { opacity: 1; transform: translateY(0); }
+     
+        .art-info h3 {
+            font-family: var(--font-serif); font-style: italic; font-weight: 300;
+            color: #fff; font-size: 1.5rem;
+        }
+        .art-info span { color: var(--gold-accent); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
+        /* --- FOOTER (Igual ao original) --- */
+        .footer-lux-1 {
+            background-color: #050505; color: #fff; padding-top: 60px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative; overflow: hidden;
+        }
+        .f1-big-name {
+            font-family: var(--font-serif); font-size: 13.5vw; text-align: center;
+            line-height: 0.75; color: rgba(255, 255, 255, 0.03);
+            text-transform: uppercase; user-select: none; margin-bottom: -30px;
+        }
+        .f1-copy { text-align: center; font-size: 0.7rem; color: #444; padding-bottom: 20px; margin-top: 40px;}
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .art-gallery { column-count: 2; }
+            .ph-title { font-size: 3.5rem; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 15px; }
+            .brand h1 { font-size: 1.5rem; }
+            .nav-links { display: none; } /* Simplificado para mobile */
+            .art-gallery { column-count: 1; }
+            .ph-title { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV (Link para voltar para Home) -->
+    <header class="transparent">
+        <div class="nav-links nav-left">
+            <!-- Supondo que sua página principal se chame index.html -->
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
+     
+        <div class="brand" onclick="window.location.href='index.html'">
+            <h1>Alexandra Teixeira</h1>
+            <span>Fine Art Photography</span>
+        </div>
+     
+        <div class="nav-links nav-right">
+            <a href="#contato">Contato</a>
+        </div>
+    </header>
+    <!-- HEADER DA PÁGINA (HERO) -->
+    <section class="page-header">
+        <div class="ph-content">
+            <span class="ph-subtitle">Coleção Exclusiva</span>
+            <h1 class="ph-title">Paisagens Místicas</h1>
+            <span class="ph-subtitle">2024 — 2025</span>
+        </div>
+    </section>
+    <!-- INTRODUÇÃO -->
+    <section class="intro-section">
+        <div class="intro-text">
+            <span class="divider"></span>
+            <p>"A fotografia de paisagens místicas captura a essência da natureza em seus momentos mais enigmáticos e inspiradores. É uma jornada através de montanhas enevoadas, florestas antigas e céus estrelados, convidando o espectador a se conectar com o mundo natural de forma profunda e reflexiva."</p>
+            <span class="divider"></span>
+        </div>
+    </section>
+    <!-- GALERIA DE ARTE (Imagens estilo "Paisagens Místicas") -->
+    <section class="art-gallery">
+     
+        <!-- Obra 1 -->
+        <div class="art-item">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=800" alt="Montanha Enevoada">
+            <div class="art-info">
+                <h3>Montanhas Eternas</h3>
+                <span>Série Paisagens I</span>
+            </div>
+        </div>
+        <!-- Obra 2 -->
+        <div class="art-item">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800" alt="Floresta Mística">
+            <div class="art-info">
+                <h3>Floresta Encantada</h3>
+                <span>Natureza Selvagem</span>
+            </div>
+        </div>
+        <!-- Obra 3 -->
+        <div class="art-item">
+            <img src="https://images.unsplash.com/photo-1759334392740-44829ae91a00?q=80&w=800" alt="Lago Sereno">
+            <div class="art-info">
+                <h3>Lago dos Sonhos</h3>
+                <span>Reflexos & Luz</span>
+            </div>
+        </div>
+        <!-- Obra 4 -->
+        <div class="art-item">
+            <img src="https://images.unsplash.com/photo-1718796282881-a126194ec983?fm=jpg&q=60&w=800" alt="Céu Estrelado">
+            <div class="art-info">
+                <h3>Noite Estelar</h3>
+                <span>Astronomia & Mistério</span>
+            </div>
+        </div>
+        <!-- Obra 5 -->
+        <div class="art-item">
+            <img src="https://thumbs.dreamstime.com/b/enchanted-forest-waterfall-fireflies-flowers-night-fantasy-game-background-enchanted-forest-waterfall-fireflies-flowers-night-361274086.jpg" alt="Cachoeira Mágica">
+            <div class="art-info">
+                <h3>Cachoeira das Sombras</h3>
+                <span>Série Paisagens II</span>
+            </div>
+        </div>
+        <!-- Obra 6 -->
+        <div class="art-item">
+            <img src="https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=800" alt="Deserto Dourado">
+            <div class="art-info">
+                <h3>Deserto Infinito</h3>
+                <span>Contemporâneo</span>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER SIMPLIFICADO -->
+    <footer id="contato" class="footer-lux-1">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #888;">Interessado em uma dessas obras?</p>
+            <a href="mailto:contato@alexandra.com" style="font-family: var(--font-serif); font-size: 2rem; color: var(--gold-accent); text-decoration: none; font-style: italic;">Solicitar Orçamento</a>
+        </div>
+        <div class="f1-big-name">Alexandra</div>
+        <div class="f1-copy">&copy; 2025 Alexandra Teixeira Fine Art</div>
+    </footer>
+    <script>
+        function updateHeader() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 0) {
+                header.classList.remove('transparent');
+            } else {
+                header.classList.add('transparent');
+            }
+        }
+        window.addEventListener('scroll', updateHeader);
+        window.addEventListener('load', updateHeader);
+    </script>
+</body>
+</html>

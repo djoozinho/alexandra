@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capturando a Essência | Alexandra Teixeira</title>
+ 
+    <!-- Fontes de Luxo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+ 
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- ESTILOS GERAIS (Identidade Visual) --- */
+        :root {
+            --bg-dark: #080808;
+            --gold-accent: #d4af37;
+            --text-main: #f5f5f5;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+     
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+        }
+        /* --- HEADER --- */
+        header {
+            position: fixed; top: 0; width: 100%;
+            padding: 20px 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.90);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(8px);
+            transition: background 0.3s ease;
+        }
+        header.transparent {
+            background: transparent;
+            border-bottom: none;
+        }
+        .nav-links a {
+            color: white; text-decoration: none;
+            margin: 0 20px; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--gold-accent); }
+        .brand { text-align: center; cursor: pointer; }
+        .brand h1 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 400; color: white; }
+        .brand span { display: block; font-size: 0.5rem; letter-spacing: 4px; color: var(--gold-accent); text-transform: uppercase; }
+        /* --- HERO DA PÁGINA --- */
+        .page-hero {
+            height: 70vh;
+            position: relative;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            /* Imagem de fundo: Um retrato forte com olhar marcante */
+            background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1920');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); /* Escurece levemente */
+        }
+        .hero-text { z-index: 2; text-align: center; animation: fadeIn 1.5s ease; }
+     
+        .hero-text h1 {
+            font-family: var(--font-serif); font-size: 5.5rem; color: #fff;
+            font-style: italic; font-weight: 300; line-height: 1;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .hero-text p {
+            font-size: 0.9rem; letter-spacing: 6px; color: var(--gold-accent);
+            text-transform: uppercase; margin-top: 15px;
+        }
+        /* --- CITAÇÃO --- */
+        .quote-section {
+            padding: 80px 20px; text-align: center; max-width: 900px; margin: 0 auto;
+        }
+        .quote-text {
+            font-family: var(--font-serif); font-size: 2rem; color: #888; font-style: italic;
+        }
+        .quote-author {
+            display: block; margin-top: 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-accent);
+        }
+        /* --- GRID EDITORIAL (Layout Mosaico) --- */
+        .portrait-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Colunas */
+            gap: 15px;
+            padding: 0 40px 100px 40px;
+            max-width: 1600px; margin: 0 auto;
+        }
+        .p-item {
+            position: relative; height: 600px; overflow: hidden; cursor: crosshair;
+        }
+        /* Itens que ocupam mais espaço para destaque */
+        .p-item.wide { grid-column: span 2; }
+     
+        .p-img {
+            width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: sepia(10%) contrast(1.1);
+        }
+        .p-item:hover .p-img { transform: scale(1.1); filter: sepia(0%) contrast(1); }
+        .p-info {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0; transition: 0.5s; z-index: 2;
+        }
+        .p-item:hover .p-info { opacity: 1; }
+        .p-item::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); opacity: 0; transition: 0.5s;
+        }
+        .p-item:hover::after { opacity: 1; }
+        .p-info h3 {
+            font-family: var(--font-serif); font-size: 2.5rem; color: var(--gold-accent);
+            font-weight: 300; font-style: italic;
+        }
+        .p-info span { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: white; }
+        /* --- FOOTER --- */
+        .footer-lux-1 {
+            background-color: #050505; color: #fff; padding-top: 60px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+        .f1-big-name {
+            font-family: var(--font-serif); font-size: 13.5vw; text-align: center;
+            line-height: 0.75; color: rgba(255, 255, 255, 0.03);
+            text-transform: uppercase; margin-bottom: -30px; user-select: none;
+        }
+        .f1-copy { text-align: center; font-size: 0.7rem; color: #444; padding-bottom: 20px; }
+        /* RESPONSIVIDADE */
+        @media (max-width: 1024px) {
+            .portrait-grid { grid-template-columns: repeat(2, 1fr); }
+            .p-item.wide { grid-column: span 2; }
+            .hero-text h1 { font-size: 4rem; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 15px; }
+            .brand h1 { font-size: 1.5rem; }
+            .nav-links { display: none; }
+            .hero-text h1 { font-size: 3rem; }
+            .portrait-grid { grid-template-columns: 1fr; padding: 20px; }
+            .p-item.wide { grid-column: span 1; }
+            .p-item { height: 450px; }
+        }
+     
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); }}
+    </style>
+</head>
+<body>
+    <!-- NAVEGAÇÃO -->
+    <header class="transparent">
+        <div class="nav-links nav-left">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
+     
+        <div class="brand" onclick="window.location.href='index.html'">
+            <h1>Alexandra Teixeira</h1>
+            <span>Fine Art Photography</span>
+        </div>
+     
+        <div class="nav-links nav-right">
+            <a href="#footer">Contato</a>
+        </div>
+    </header>
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+            <h1>Capturando a Essência</h1>
+            <p>Retratos & Alma</p>
+        </div>
+    </section>
+    <!-- CITAÇÃO -->
+    <section class="quote-section">
+        <p class="quote-text">"Não fotografo apenas rostos. Fotografo o que está por trás dos olhos, a história não dita e a beleza crua da verdade humana."</p>
+        <span class="quote-author">— Alexandra Teixeira</span>
+    </section>
+    <!-- GALERIA EDITORIAL -->
+    <section class="portrait-grid">
+     
+        <!-- Foto 1 (Retrato PB) -->
+        <div class="p-item">
+            <div class="p-img" style="background-image: url('https://images.unsplash.com/photo-1548544149-4835e62ee5b3?q=80&w=800');"></div>
+            <div class="p-info">
+                <h3>O Olhar</h3>
+                <span>Série Noir</span>
+            </div>
+        </div>
+        <!-- Foto 2 (Destaque Largo - Wide) -->
+        <div class="p-item wide">
+            <div class="p-img" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1600');"></div> <!-- Mesma da home, mas wide -->
+            <div class="p-info">
+                <h3>Intensidade</h3>
+                <span>Editorial de Moda</span>
+            </div>
+        </div>
+        <!-- Foto 3 (Detalhe/Mão/Rosto) -->
+        <div class="p-item">
+            <div class="p-img" style="background-image: url('https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=800');"></div>
+            <div class="p-info">
+                <h3>Silêncio</h3>
+                <span>Minimalismo</span>
+            </div>
+        </div>
+        <!-- Foto 4 -->
+        <div class="p-item">
+            <div class="p-img" style="background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800');"></div>
+            <div class="p-info">
+                <h3>Carisma</h3>
+                <span>Retrato Masculino</span>
+            </div>
+        </div>
+        <!-- Foto 5 -->
+        <div class="p-item">
+            <div class="p-img" style="background-image: url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=800');"></div>
+            <div class="p-info">
+                <h3>Mistério</h3>
+                <span>Luz Natural</span>
+            </div>
+        </div>
+        <!-- Foto 6 (Destaque Largo - Wide) -->
+        <div class="p-item wide">
+            <div class="p-img" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1600');"></div>
+            <div class="p-info">
+                <h3>Espontaneidade</h3>
+                <span>Lifestyle</span>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer id="footer" class="footer-lux-1">
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-bottom: 50px;">
+            <p style="text-transform: uppercase; color: #666; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px;">Deseja ser retratado?</p>
+            <a href="mailto:contato@alexandra.com" style="color: var(--gold-accent); font-family: var(--font-serif); font-size: 1.5rem; text-decoration: none; border-bottom: 1px solid rgba(212,175,55,0.3);">Agendar Sessão</a>
+        </div>
+        <div class="f1-big-name">Alexandra</div>
+        <div class="f1-copy">&copy; 2025 Alexandra Teixeira - Fotografia Editorial</div>
+    </footer>
+    <script>
+        function updateHeader() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 0) {
+                header.classList.remove('transparent');
+            } else {
+                header.classList.add('transparent');
+            }
+        }
+        window.addEventListener('scroll', updateHeader);
+        window.addEventListener('load', updateHeader);
+    </script>
+</body>
+</html>
