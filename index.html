@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexandra Teixeira | Artista Visual</title>
   
-    <!-- Fontes -->
+    <!-- Fontes & Ícones -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   
     <style>
         :root {
             --bg-dark: #080808;
-            --bg-panel: #121212;
             --gold-accent: #d4af37;
             --text-main: #f5f5f5;
-            --text-grey: #a0a0a0;
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
         }
@@ -32,15 +30,12 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold-accent); }
 
-        /* ==================== HEADER DESKTOP ==================== */
+        /* HEADER DESKTOP */
         header {
             position: fixed;
-            top: 0;
-            width: 100%;
+            top: 0; width: 100%;
             padding: 30px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
             z-index: 1000;
             background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
             transition: all 0.5s ease;
@@ -52,51 +47,33 @@
             backdrop-filter: blur(10px);
         }
         .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            transition: 0.3s;
+            color: white; text-decoration: none;
+            margin: 0 20px; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 2px;
+            position: relative; transition: 0.3s;
         }
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px; left: 0; width: 0; height: 1px;
-            background: var(--gold-accent);
-            transition: 0.3s;
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
+            background: var(--gold-accent); transition: 0.3s;
         }
         .nav-links a:hover { color: var(--gold-accent); }
         .nav-links a:hover::after { width: 100%; }
         .brand h1 {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 400;
-            color: white;
+            font-family: var(--font-serif); font-size: 2rem; font-weight: 400; color: white;
         }
         .brand span {
-            display: block;
-            font-size: 0.6rem;
-            letter-spacing: 5px;
-            color: var(--gold-accent);
-            text-transform: uppercase;
-            margin-top: 5px;
+            display: block; font-size: 0.6rem; letter-spacing: 5px; color: var(--gold-accent);
+            text-transform: uppercase; margin-top: 5px;
         }
 
-        /* ==================== HEADER MOBILE (hambúrguer + hide on scroll) ==================== */
+        /* HEADER MOBILE - HIDE ON SCROLL */
         .mobile-header {
-            position: fixed;
-            top: 0;
-            width: 100%;
+            position: fixed; top: 0; width: 100%;
             padding: 22px 20px;
             background: rgba(8,8,8,0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(212,175,55,0.1);
-            display: none;
-            justify-content: space-between;
-            align-items: center;
+            display: none; justify-content: space-between; align-items: center;
             z-index: 1000;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -104,38 +81,25 @@
         .mobile-header.show { transform: translateY(0); }
 
         .menu-toggle span {
-            width: 26px; height: 2px; background: white; margin: 4px 0; transition: 0.3s;
-            display: block;
+            width: 26px; height: 2px; background: white; margin: 4px 0; display: block; transition: 0.3s;
         }
         .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
         .menu-toggle.active span:nth-child(2) { opacity: 0; }
         .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
 
         .nav-mobile {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: rgba(8,8,8,0.99);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             transform: translateY(-100%);
             transition: transform 0.6s cubic-bezier(0.77, 0, 0.18, 1);
             z-index: 999;
         }
         .nav-mobile.active { transform: translateY(0); }
         .nav-mobile a {
-            color: white;
-            text-decoration: none;
-            font-size: 2.6rem;
-            margin: 18px 0;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            font-weight: 300;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.7s ease;
+            color: white; text-decoration: none; font-size: 2.6rem; margin: 18px 0;
+            text-transform: uppercase; letter-spacing: 6px; font-weight: 300;
+            opacity: 0; transform: translateY(40px); transition: all 0.7s ease;
         }
         .nav-mobile.active a { opacity: 1; transform: translateY(0); }
         .nav-mobile a:nth-child(1) { transition-delay: 0.2s; }
@@ -143,13 +107,10 @@
         .nav-mobile a:nth-child(3) { transition-delay: 0.4s; }
         .nav-mobile a:hover { color: var(--gold-accent); }
 
-        /* ==================== HERO ==================== */
+        /* HERO */
         .hero {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 80px 1fr 80px;
+            height: 100vh; position: relative; overflow: hidden;
+            display: grid; grid-template-columns: 80px 1fr 80px;
         }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .slide {
@@ -164,18 +125,13 @@
             background: radial-gradient(circle, transparent 20%, #080808 120%);
             background-color: rgba(0,0,0,0.3);
         }
-
         .side-panel {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            z-index: 10;
+            border-right: 1px solid rgba(255,255,255,0.05); z-index: 10;
         }
         .v-text {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            color: var(--gold-accent);
+            writing-mode: vertical-rl; transform: rotate(180deg);
+            font-size: 0.7rem; letter-spacing: 4px; color: var(--gold-accent);
         }
         .social-hero a {
             display: block; margin: 20px 0; color: white; opacity: 0.6; transition: 0.3s;
@@ -187,208 +143,118 @@
             text-align: center; z-index: 5;
         }
         .hero-title {
-            font-family: var(--font-serif);
-            font-size: 5rem;
-            font-weight: 300;
-            font-style: italic;
-            color: white;
-            line-height: 1;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            font-family: var(--font-serif); font-size: 5rem; font-weight: 300; font-style: italic;
+            color: white; line-height: 1; text-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-bottom: 30px;
         }
         .hero-btn {
-            padding: 15px 40px;
-            background: transparent;
-            border: 1px solid white;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.4s;
+            padding: 15px 40px; background: transparent; border: 1px solid white;
+            color: white; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
+            cursor: pointer; transition: 0.4s;
         }
         .hero-btn:hover { background: white; color: black; }
 
+        /* BOTÕES DO CARROSSEL - AGORA VISÍVEIS E BONITOS */
         .controls {
-            position: absolute;
-            bottom: 40px;
-            right: 120px;
-            display: flex;
-            gap: 15px;
-            z-index: 20;
+            position: absolute; bottom: 40px; right: 120px;
+            display: flex; gap: 18px; z-index: 20;
         }
         .ctrl-btn {
-            width: 50px; height: 50px;
+            width: 56px; height: 56px;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.2);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
             color: white;
+            font-size: 1.4rem;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
-        .ctrl-btn:hover { border-color: var(--gold-accent); color: var(--gold-accent); }
+        .ctrl-btn:hover {
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
+            background: rgba(212,175,55,0.2);
+            transform: scale(1.15);
+        }
 
-        /* ==================== PORTFÓLIO & FOOTER ==================== */
+        /* PORTFÓLIO */
         .section-title {
-            text-align: center;
-            margin: 120px 0 60px;
+            text-align: center; margin: 120px 0 60px;
         }
         .section-title h2 {
-            font-family: var(--font-serif);
-            font-size: 3.5rem;
-            font-weight: 300;
-            color: var(--gold-accent);
+            font-family: var(--font-serif); font-size: 3.5rem; font-weight: 300; color: var(--gold-accent);
         }
         .section-title p {
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.75rem;
-            margin-top: 10px;
-            color: #666;
+            text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; margin-top: 10px; color: #666;
         }
         .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 20px;
-            padding: 0 20px;
-            margin-bottom: 150px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            max-width: 1400px; margin: 0 auto; gap: 20px; padding: 0 20px; margin-bottom: 150px;
         }
         .gallery-item {
-            height: 550px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
+            height: 550px; position: relative; overflow: hidden; cursor: pointer;
         }
         .g-img {
-            width: 100%; height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: transform 1s ease;
-            filter: grayscale(20%) brightness(0.9);
+            width: 100%; height: 100%; background-size: cover; background-position: center;
+            transition: transform 1s ease; filter: grayscale(20%) brightness(0.9);
         }
-        .gallery-item:hover .g-img {
-            transform: scale(1.05);
-            filter: grayscale(0%) brightness(1);
-        }
+        .gallery-item:hover .g-img { transform: scale(1.05); filter: grayscale(0%) brightness(1); }
         .g-overlay {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%;
-            padding: 40px;
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px;
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: 0.5s;
+            opacity: 0; transform: translateY(20px); transition: 0.5s;
         }
         .gallery-item:hover .g-overlay { opacity: 1; transform: translateY(0); }
         .g-overlay span { color: var(--gold-accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
-        .g-overlay h3 {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            font-style: italic;
-            color: white;
-        }
+        .g-overlay h3 { font-family: var(--font-serif); font-size: 2.2rem; font-style: italic; color: white; }
 
+        /* FOOTER */
         .footer-lux-1 {
-            background-color: #050505;
-            color: #fff;
-            padding-top: 80px;
-            border-top: 1px solid rgba(212,175,55,0.2);
-            position: relative;
+            background: #050505; padding-top: 80px; border-top: 1px solid rgba(212,175,55,0.2);
         }
         .f1-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
+            max-width: 1200px; margin: 0 auto; padding: 0 40px;
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 80px;
         }
         .f1-col h4 {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            color: var(--gold-accent);
-            margin-bottom: 25px;
-            font-weight: 300;
-            font-style: italic;
+            font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold-accent);
+            margin-bottom: 25px; font-weight: 300; font-style: italic;
         }
-        .f1-col a, .f1-col p {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            letter-spacing: 1px;
-            line-height: 1.8;
-        }
+        .f1-col a, .f1-col p { color: #888; text-decoration: none; font-size: 0.95rem; transition: 0.3s; letter-spacing: 1px; line-height: 1.8; }
         .f1-col a:hover { color: var(--gold-accent); }
         .f1-big-name {
-            font-family: var(--font-serif);
-            font-size: 13.5vw;
-            text-align: center;
-            color: rgba(255,255,255,0.03);
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            user-select: none;
-            margin-bottom: -30px;
-            white-space: nowrap;
+            font-family: var(--font-serif); font-size: 13.5vw; text-align: center;
+            color: rgba(255,255,255,0.03); text-transform: uppercase; letter-spacing: -2px;
+            user-select: none; margin-bottom: -30px; white-space: nowrap;
         }
         .f1-copy {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #333;
-            padding-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            text-align: center; font-size: 0.7rem; color: #333; padding-bottom: 20px;
+            text-transform: uppercase; letter-spacing: 2px;
         }
 
-        /* ==================== RESPONSIVO (MOBILE) ==================== */
+        /* RESPONSIVO MOBILE */
         @media (max-width: 768px) {
-            /* Esconde header desktop */
             header { display: none; }
             .mobile-header { display: flex; }
             body { padding-top: 90px; }
-
-            /* Hero mobile */
-            .hero {
-                grid-template-columns: 1fr;
-                padding: 0 20px;
-            }
+            .hero { grid-template-columns: 1fr; padding: 0 20px; }
             .side-panel { display: none; }
             .hero-title { font-size: 3.4rem; }
             .controls {
-                bottom: 30px;
-                left: 50%;
+                bottom: 30px; left: 50%; right: auto;
                 transform: translateX(-50%);
-                right: auto;
             }
-
-            /* Galeria mobile */
-            .gallery {
-                grid-template-columns: 1fr;
-                padding: 0 20px;
-                gap: 22px;
-            }
+            .ctrl-btn { width: 50px; height: 50px; font-size: 1.2rem; }
+            .gallery { grid-template-columns: 1fr; padding: 0 20px; gap: 22px; }
             .gallery-item { height: 480px; }
             .g-overlay { padding: 30px; }
-
-            /* Footer mobile */
-            .f1-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 50px;
-                padding: 0 30px;
-            }
+            .f1-content { grid-template-columns: 1fr; text-align: center; gap: 50px; padding: 0 30px; }
             .f1-big-name { font-size: 19vw; }
         }
-
         @media (max-width: 480px) {
             .hero-title { font-size: 3rem; }
-            .hero-btn { padding: 14px 34px; font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -409,7 +275,7 @@
         </div>
     </header>
 
-    <!-- HEADER MOBILE (hambúrguer + hide on scroll) -->
+    <!-- HEADER MOBILE -->
     <div class="mobile-header show" id="mobileHeader">
         <div class="brand">
             <h1 style="font-size:1.65rem;">Alexandra Teixeira</h1>
@@ -420,7 +286,7 @@
         </div>
     </div>
 
-    <!-- MENU MOBILE FULLSCREEN -->
+    <!-- MENU MOBILE -->
     <nav class="nav-mobile" id="navMobile">
         <a href="#about">Sobre</a>
         <a href="#portfolio">Portfólio</a>
@@ -452,9 +318,10 @@
             </div>
         </div>
 
+        <!-- BOTÕES COM SETAS VISÍVEIS -->
         <div class="controls">
-            <div class="ctrl-btn" onclick="prevSlide()">Left Arrow</div>
-            <div class="ctrl-btn" onclick="nextSlide()">Right Arrow</div>
+            <div class="ctrl-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></div>
+            <div class="ctrl-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></div>
         </div>
     </section>
 
@@ -524,33 +391,24 @@
             navMobile.classList.remove('active');
         }));
 
-        // HEADER MOBILE - HIDE ON SCROLL DOWN
+        // HEADER MOBILE - HIDE ON SCROLL
         const mobileHeader = document.getElementById('mobileHeader');
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const current = window.pageYOffset;
-            if (current <= 0) {
-                mobileHeader.classList.remove('hide');
-                mobileHeader.classList.add('show');
-                return;
-            }
+            if (current <= 0) { mobileHeader.classList.remove('hide'); mobileHeader.classList.add('show'); return; }
             if (current > lastScroll && !mobileHeader.classList.contains('hide')) {
-                mobileHeader.classList.add('hide');
-                mobileHeader.classList.remove('show');
-                menuToggle.classList.remove('active');
-                navMobile.classList.remove('active');
+                mobileHeader.classList.add('hide'); mobileHeader.classList.remove('show');
+                menuToggle.classList.remove('active'); navMobile.classList.remove('active');
             } else if (current < lastScroll && mobileHeader.classList.contains('hide')) {
-                mobileHeader.classList.remove('hide');
-                mobileHeader.classList.add('show');
+                mobileHeader.classList.remove('hide'); mobileHeader.classList.add('show');
             }
             lastScroll = current;
         });
 
-        // HEADER DESKTOP SCROLL EFFECT
+        // HEADER DESKTOP SCROLL
         window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 80) nav.classList.add('header-scrolled');
-            else nav.classList.remove('header-scrolled');
+            document.getElementById('navbar').classList.toggle('header-scrolled', window.scrollY > 80);
         });
 
         // CARROSSEL
@@ -561,9 +419,7 @@
 
         function updateSlide(i) {
             slides.forEach(s => s.classList.remove('active'));
-            if (i >= slides.length) currentSlide = 0;
-            else if (i < 0) currentSlide = slides.length - 1;
-            else currentSlide = i;
+            currentSlide = (i + slides.length) % slides.length;
             slides[currentSlide].classList.add('active');
             heroText.style.opacity = 0;
             setTimeout(() => {
