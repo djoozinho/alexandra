@@ -1,16 +1,442 @@
-<footer>
-  <div class="social-icons">
-    <a href="https://www.facebook.com" target="_blank">
-      <img src="icons/facebook-icon.svg" alt="Facebook" />
-    </a>
-    <a href="https://www.twitter.com" target="_blank">
-      <img src="icons/twitter-icon.svg" alt="Twitter" />
-    </a>
-    <a href="https://www.instagram.com" target="_blank">
-      <img src="icons/instagram-icon.svg" alt="Instagram" />
-    </a>
-    <a href="https://www.linkedin.com" target="_blank">
-      <img src="icons/linkedin-icon.svg" alt="LinkedIn" />
-    </a>
-  </div>
-</footer>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexandra Teixeira | Artista Visual</title>
+   
+    <!-- Fontes de Luxo (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+   
+    <!-- Ícones (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- VARIÁVEIS DE ESTILO (LUXO) --- */
+        :root {
+            --bg-dark: #080808; /* Fundo Principal */
+            --bg-panel: #121212; /* Painéis */
+            --gold-accent: #d4af37; /* Dourado Clássico */
+            --text-main: #f5f5f5; /* Texto Claro */
+            --text-grey: #a0a0a0; /* Texto Secundário */
+            --font-serif: 'Cormorant Garamond', serif; /* Fonte Títulos */
+            --font-sans: 'Montserrat', sans-serif; /* Fonte Corpo */
+        }
+        /* --- RESET GERAL --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+       
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-accent); }
+        /* --- HEADER (Navegação) --- */
+        header {
+            position: fixed; top: 0; width: 100%;
+            padding: 30px 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            transition: 0.5s ease;
+        }
+        .header-scrolled {
+            background: rgba(5, 5, 5, 0.95);
+            padding: 15px 60px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .nav-links {
+            flex: 1; /* Distribui espaço para equilíbrio */
+            display: flex;
+        }
+       
+        /* Ajuste de alinhamento dos menus */
+        .nav-left { justify-content: flex-start; }
+        .nav-right { justify-content: flex-end; }
+        .nav-links a {
+            color: white; text-decoration: none;
+            margin: 0 20px; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 2px;
+            position: relative; transition: 0.3s;
+        }
+       
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
+            background: var(--gold-accent); transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--gold-accent); }
+        .nav-links a:hover::after { width: 100%; }
+        .brand { text-align: center; flex: 1; }
+        .brand h1 {
+            font-family: var(--font-serif); font-size: 2rem; font-weight: 400; letter-spacing: 1px;
+            color: white; margin: 0;
+        }
+        .brand span {
+            display: block; font-size: 0.6rem; font-family: var(--font-sans);
+            letter-spacing: 5px; color: var(--gold-accent); margin-top: 5px; text-transform: uppercase;
+        }
+        /* --- HERO SECTION (Cinematográfica) --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 80px 1fr 80px; /* Layout 3 colunas */
+        }
+        /* Background Slideshow */
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+        }
+       
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0; transform: scale(1.15);
+            transition: opacity 1.5s ease, transform 8s linear; /* Efeito Ken Burns */
+        }
+       
+        .slide.active { opacity: 1; transform: scale(1); }
+       
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, #080808 120%);
+            background-color: rgba(0,0,0,0.3);
+        }
+        /* Laterais do Hero */
+        .side-panel {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            border-left: 1px solid rgba(255,255,255,0.05);
+            z-index: 10; backdrop-filter: blur(2px);
+        }
+        .v-text {
+            writing-mode: vertical-rl; transform: rotate(180deg);
+            font-size: 0.7rem; letter-spacing: 4px; color: var(--gold-accent);
+        }
+        .social-hero a {
+            display: block; margin: 20px 0; color: white; opacity: 0.6; transition: 0.3s;
+        }
+        .social-hero a:hover { opacity: 1; color: var(--gold-accent); transform: scale(1.2); }
+        /* Conteúdo Central */
+        .hero-content {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; z-index: 5;
+        }
+        .hero-title {
+            font-family: var(--font-serif); font-size: 5rem; color: white;
+            font-style: italic; font-weight: 300; line-height: 1;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        .hero-btn {
+            padding: 15px 40px;
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
+            cursor: pointer; transition: 0.4s;
+        }
+        .hero-btn:hover { background: white; color: black; }
+        /* Controles Slide */
+        .controls {
+            position: absolute; bottom: 40px; right: 120px; z-index: 20; display: flex; gap: 15px;
+        }
+        .ctrl-btn {
+            width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.2); color: white; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ctrl-btn:hover { border-color: var(--gold-accent); color: var(--gold-accent); }
+        /* --- PORTFOLIO (FOTOS) --- */
+        .section-title {
+            text-align: center; margin: 120px 0 60px;
+        }
+        .section-title h2 {
+            font-family: var(--font-serif); font-size: 3.5rem; font-weight: 300;
+            color: var(--gold-accent);
+        }
+        .section-title p {
+            text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; margin-top: 10px; color: #666;
+        }
+        .gallery {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            max-width: 1400px; margin: 0 auto;
+            gap: 20px; padding: 0 20px;
+            margin-bottom: 150px; /* Espaço extra antes do footer */
+        }
+       
+        .gallery-item {
+            height: 550px; position: relative; overflow: hidden; cursor: pointer;
+            display: block;
+            text-decoration: none;
+        }
+       
+        .g-img {
+            width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transition: transform 1s ease;
+            filter: grayscale(20%) brightness(0.9);
+        }
+       
+        .gallery-item:hover .g-img { transform: scale(1.05); filter: grayscale(0%) brightness(1); }
+        .g-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            opacity: 0; transition: 0.5s; transform: translateY(20px);
+        }
+        .gallery-item:hover .g-overlay { opacity: 1; transform: translateY(0); }
+       
+        .g-overlay h3 {
+            font-family: var(--font-serif); font-size: 2.2rem; font-style: italic; font-weight: 300; color: #fff;
+        }
+        .g-overlay span { color: var(--gold-accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        /* --- FOOTER EXCLUSIVO (OPÇÃO 1 - BIG BRAND) --- */
+        .footer-lux-1 {
+            background-color: #050505;
+            color: #fff;
+            padding-top: 80px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        .f1-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr; /* Coluna 1 maior */
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+        .f1-col h4 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--gold-accent);
+            margin-bottom: 25px;
+            font-weight: 300;
+            font-style: italic;
+        }
+        .f1-col ul { list-style: none; }
+        .f1-col li { margin-bottom: 15px; }
+       
+        .f1-col a, .f1-col p {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            line-height: 1.8;
+        }
+        .f1-col a:hover { color: #fff; padding-left: 5px; color: var(--gold-accent); }
+        /* O NOME GIGANTE (SIGNATURE) */
+        .f1-big-name {
+            font-family: var(--font-serif);
+            font-size: 13.5vw; /* Tamanho responsivo */
+            text-align: center;
+            line-height: 0.75;
+            color: rgba(255, 255, 255, 0.03); /* Transparência sutil */
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            user-select: none;
+            pointer-events: none;
+            margin-bottom: -30px; /* Corta levemente para dar estilo */
+            white-space: nowrap;
+        }
+        .f1-copy {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #333;
+            padding-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        /* RESPONSIVIDADE */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 3.5rem; }
+            .f1-big-name { font-size: 18vw; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 20px; flex-direction: column; gap: 15px; background: rgba(0,0,0,0.9); }
+            .hero { grid-template-columns: 1fr; }
+            .side-panel { display: none; }
+            .hero-title { font-size: 3rem; }
+            .gallery-item { height: 400px; }
+           
+            /* Footer Mobile */
+            .f1-content { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+            .f1-col a:hover { padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVEGAÇÃO SUPERIOR -->
+    <header id="navbar">
+        <div class="nav-links nav-left">
+            <a href="#about">Sobre</a>
+            <a href="#portfolio">Portfólio</a>
+        </div>
+       
+        <div class="brand">
+            <h1>Alexandra Teixeira</h1>
+            <span>Fine Art Photography</span>
+        </div>
+       
+        <div class="nav-links nav-right">
+            <a href="#contact">Contato</a>
+        </div>
+    </header>
+    <!-- HERO SECTION (CARROSSEL) -->
+    <section class="hero">
+        <!-- Lateral Esquerda -->
+        <div class="side-panel">
+            <span class="v-text">DESDE 2025</span>
+            <div style="height: 60px; width: 1px; background: rgba(255,255,255,0.2); margin-top: 20px;"></div>
+        </div>
+        <!-- Slideshow Background -->
+        <div class="hero-bg">
+            <!-- Slide 1: Moda -->
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=1920&auto=format&fit=crop');"></div>
+            <!-- Slide 2: Casamento -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1920&auto=format&fit=crop');"></div>
+            <!-- Slide 3: Artistico (NOVA IMAGEM) -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1920&auto=format&fit=crop');"></div>
+            <div class="overlay"></div>
+        </div>
+        <!-- Conteúdo Central Hero -->
+        <div class="hero-content">
+            <h2 class="hero-title" id="hero-text">Capturando a Essência</h2>
+            <button class="hero-btn" onclick="document.getElementById('portfolio').scrollIntoView({behavior: 'smooth'})">Ver Portfólio</button>
+        </div>
+        <!-- Lateral Direita -->
+        <div class="side-panel">
+            <div class="social-hero">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+        <!-- Botões de Controle -->
+        <div class="controls">
+            <div class="ctrl-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></div>
+            <div class="ctrl-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    </section>
+    <!-- PORTFOLIO DE FOTOS -->
+    <section id="portfolio">
+        <div class="section-title">
+            <h2>Trabalhos Selecionados</h2>
+            <p>A arte da fotografia estática</p>
+        </div>
+       
+        <div class="gallery">
+            <!-- Item 1 -->
+            <a href="capturando-essencia.html" class="gallery-item">
+                <div class="g-img" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800');"></div>
+                <div class="g-overlay">
+                    <span>Editorial</span>
+                    <h3>Moda & Estilo</h3>
+                </div>
+            </a>
+            <!-- Item 2 -->
+            <a href="arte-atemporal.html" class="gallery-item">
+                <div class="g-img" style="background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=800');"></div>
+                <div class="g-overlay">
+                    <span>Autoral</span>
+                    <h3>Preto & Branco</h3>
+                </div>
+            </a>
+            <!-- Item 3: Nova Imagem -->
+            <a href="momentos-eternos.html" class="gallery-item">
+                <div class="g-img" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800');"></div>
+                <div class="g-overlay">
+                    <span>Casamentos</span>
+                    <h3>Momentos Reais</h3>
+                </div>
+            </a>
+        </div>
+    </section>
+    <!-- FOOTER "OPTION 1" - THE BIG BRAND -->
+    <footer id="contact" class="footer-lux-1">
+        <div class="f1-content">
+            <!-- Coluna 1: Convite -->
+            <div class="f1-col">
+                <h4>Vamos criar?</h4>
+                <p>Especialista em capturar a essência humana através da luz. Disponível para projetos editoriais e eventos em todo o Brasil e exterior.</p>
+                <br>
+                <a href="mailto:contato@alexandra.com" style="color:white; border-bottom:1px solid var(--gold-accent);">contato@alexandra.com</a>
+            </div>
+            <!-- Coluna 2: Navegação -->
+            <div class="f1-col">
+                <h4>Menu</h4>
+                <ul>
+                    <li><a href="#about">Sobre a Artista</a></li>
+                    <li><a href="#portfolio">Portfólio</a></li>
+                    <li><a href="#">Depoimentos</a></li>
+                    <li><a href="#">Área do Cliente</a></li>
+                </ul>
+            </div>
+            <!-- Coluna 3: Social -->
+            <div class="f1-col">
+                <h4>Conecte-se</h4>
+                <ul>
+                    <li><a href="#">Instagram / @alexandra</a></li>
+                    <li><a href="#">LinkedIn / Pro</a></li>
+                    <li><a href="#">Pinterest / Moodboard</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="f1-copy">
+            &copy; 2025 Alexandra Teixeira - Todos os direitos reservados.
+        </div>
+        <!-- Assinatura Gigante -->
+        <div class="f1-big-name">Alexandra</div>
+    </footer>
+    <!-- JAVASCRIPT LÓGICA -->
+    <script>
+        // Configuração do Carrossel
+        const slides = document.querySelectorAll('.slide');
+        const heroText = document.getElementById('hero-text');
+       
+        // Textos adaptados
+        const titles = ["Capturando a Essência", "Momentos Eternos", "Arte Atemporal"];
+        let currentSlide = 0;
+        function updateSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+           
+            if (index >= slides.length) currentSlide = 0;
+            else if (index < 0) currentSlide = slides.length - 1;
+            else currentSlide = index;
+            slides[currentSlide].classList.add('active');
+           
+            heroText.style.opacity = 0;
+            heroText.style.transform = 'translateY(20px)';
+           
+            setTimeout(() => {
+                heroText.innerText = titles[currentSlide];
+                heroText.style.opacity = 1;
+                heroText.style.transform = 'translateY(0)';
+            }, 600);
+        }
+        function nextSlide() { updateSlide(currentSlide + 1); }
+        function prevSlide() { updateSlide(currentSlide - 1); }
+        setInterval(nextSlide, 6000);
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                nav.classList.add('header-scrolled');
+            } else {
+                nav.classList.remove('header-scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
